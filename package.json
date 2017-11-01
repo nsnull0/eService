@@ -2,9 +2,21 @@
   "name": "eservice",
   "version": "0.0.2",
   "description": "eservice",
-  "main": "index.js",
+  "main": "./app/index.mjs",
+  "nodemonConfig": {
+    "ignore": [
+      "www/docs",
+      ".git",
+      "node_modules/**/node_modules"
+    ],
+    "verbose": true,
+    "ext": "js json mjs"
+  },
   "scripts": {
-    "start": "nodemon --experimental-modules ./app/index.mjs",
+    "jsdoc": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+    "prune": "node --experimental-modules ./prune.mjs",
+    "watch": "nodemon --exec 'npm start'",
+    "start": "npm run prune && npm run jsdoc && node --experimental-modules ./app/index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,12 +39,18 @@
     "express-debug": "^1.1.1",
     "express-slash": "^2.0.1",
     "express-uncapitalize": "^1.0.0",
+    "fs-extra": "^4.0.2",
     "helmet": "^3.9.0",
     "json-mask": "^0.3.8",
     "lodash": "^4.17.4",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "pidusage": "^1.2.0",
-    "response-time": "^2.3.2"
+    "response-time": "^2.3.2",
+    "serve-static": "^1.13.1"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.5.5",
+    "minami": "^1.2.3"
   }
 }
