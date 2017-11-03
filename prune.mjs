@@ -1,2 +1,2 @@
-import fs from 'fs-extra';
-fs.remove('./www/docs', () => {});
+import root from 'root';
+root.f_prune();

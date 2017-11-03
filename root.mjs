@@ -1,16 +1,32 @@
-/* eslint no-process-env: 0 */
+/*
+eslint
+    no-process-env: 0,
+    no-underscore-dangle: 0,
+*/
+import os from 'os';
+import fs from 'fs-extra';
 
-/**
- * Wrapping process to get useful info
- * @module root
- * @prop {String} env           - app environment
- * @prop {String} port          - app exposed port
- * @prop {String} appVersion    - app package version
- * @prop {String} nodeVersion   - node version
- */
-export default {
-    env: process.env.NODE_ENV || 'development',
-    port: process.env.PORT || 3000,
-    appVersion: process.env.npm_package_version || '0.0.0',
-    nodeVersion: process.version,
-};
+const penv = process.env,
+    root = {
+        name: penv.npm_package_name || 'eservice',
+        version: penv.npm_package_version || '0.0.0',
+        environment: penv.NODE_ENV || 'development',
+        port: penv.PORT || 3000,
+        user_agent: penv.npm_config_user_agent,
+
+        f_host: () => ({
+            arch: os.arch(),
+            platform: os.platform(),
+            type: os.type(),
+            release: os.release(),
+            num_cpus: os.cpus().length,
+            total_mem: os.totalmem(),
+            free_mem: os.freemem(),
+            uptime: os.uptime(),
+            load_avg: os.loadavg(),
+        }),
+        f_prune: () => {
+            fs.remove(`./www/docs/${root.name}/${root.version}/`);
+        },
+    };
+export default root;

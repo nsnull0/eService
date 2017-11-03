@@ -11,11 +11,10 @@ import uncapitalize from 'express-uncapitalize';
 import helmet from 'helmet';
 
 import health from './health';
-import _root from '_root';
+import root from 'root';
 
-const {port} = _root,
-    app = express(),
-    router = new express.Router();
+const router = new express.Router(),
+    app = express();
 
 router.use('/www', express.static('www'));
 router.use('/health', health);
@@ -33,6 +32,6 @@ app.use(uncapitalize());
 app.use(morgan('combined'));
 app.use(router);
 app.use(slash());
-app.listen(port, () => {
-    console.log(`Express server listening on port ${port}`);
+app.listen(root.port, () => {
+    console.log(`Express server listening on port ${root.port}`);
 });
