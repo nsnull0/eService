@@ -15,7 +15,7 @@
   "scripts": {
     "jsdoc": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "prune": "node --experimental-modules ./prune.mjs",
-    "watch": "nodemon --exec 'npm start'",
+    "watch": "nodemon --exec 'npm run start'",
     "start": "npm run prune && npm run jsdoc && node --experimental-modules ./app/index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -20,6 +20,9 @@ const {port} = _root,
 router.use('/www', express.static('www'));
 router.use('/health', health);
 router.get('/', (req, res) => res.status(200).json(200));
+router.put('/', (req, res) => res.status(200).json(200));
+router.post('/', (req, res) => res.status(200).json(200));
+router.delete('/', (req, res) => res.status(200).json(200));
 router.use('*', (req, res) => res.status(404).json(404));
 app.use(compression());
 app.use(cookieParser());
