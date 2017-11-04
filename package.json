@@ -47,9 +47,7 @@
     "passport": "^0.4.0",
     "pidusage": "^1.2.0",
     "response-time": "^2.3.2",
-    "serve-static": "^1.13.1"
-  },
-  "devDependencies": {
+    "serve-static": "^1.13.1",
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3"
   }

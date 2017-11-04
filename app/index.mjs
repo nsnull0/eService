@@ -14,7 +14,8 @@ import health from './health';
 import root from 'root';
 
 const router = new express.Router(),
-    app = express();
+    app = express(),
+    {port} = root;
 
 router.use('/www', express.static('www'));
 router.use('/health', health);
@@ -32,6 +33,6 @@ app.use(uncapitalize());
 app.use(morgan('combined'));
 app.use(router);
 app.use(slash());
-app.listen(root.port, () => {
-    console.log(`Express server listening on port ${root.port}`);
+app.listen(port, () => {
+    console.log(`Express server listening on port ${port}`);
 });

@@ -4,7 +4,7 @@
         "dictionaries": ["jsdoc"]
     },
     "source": {
-        "include": ["app", "root.mjs", "package.json", "README.md"],
+        "include": ["app", "package.json", "README.md"],
         "includePattern": "(.js$|.mjs$)",
         "excludePattern": "(node_modules/|docs)"
     },
