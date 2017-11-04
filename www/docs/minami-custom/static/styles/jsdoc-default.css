@@ -521,7 +521,7 @@ dl.param-type {
 .navicon-button {
   display: none;
   position: relative;
-  padding: 2.0625rem 1.5rem;
+  padding: 2.5rem 1.5rem;
   transition: 0.25s;
   cursor: pointer;
   user-select: none;
@@ -573,6 +573,10 @@ dl.param-type {
 }
 
 /* open */
+.nav-trigger:checked + .navicon-button {
+  background: transparent;
+}
+
 .nav-trigger:checked + label:not(.steps) .navicon:before,
 .nav-trigger:checked + label:not(.steps) .navicon:after {
   top: 0 !important;
@@ -665,7 +669,6 @@ dl.param-type {
   .navicon-button {
     display: inline-block;
     position: fixed;
-    top: 1.5em;
     right: 0;
     z-index: 2;
   }
