@@ -51,6 +51,7 @@
     "passport": "^0.4.0",
     "pidusage": "^1.2.0",
     "response-time": "^2.3.2",
+    "serve-index": "^1.9.1",
     "serve-static": "^1.13.1"
   }
 }

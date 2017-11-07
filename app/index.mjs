@@ -5,6 +5,7 @@
  */
 
 import express from 'express';
+import serveIndex from 'serve-index';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
@@ -31,7 +32,7 @@ router.put('/', (req, res) => res.status(200).json(200));
 router.post('/', (req, res) => res.status(200).json(200));
 router.delete('/', (req, res) => res.status(200).json(200));
 // static files
-router.use(express.static('www'));
+router.use(express.static('www'), serveIndex('www'));
 router.use('*', (req, res) => res.status(404).json(404));
 // middleware
 app.use(compression());
