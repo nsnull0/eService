@@ -21,7 +21,7 @@ const penv = process.env,
         version: penv.npm_package_version || '0.0.0',
         environment: penv.NODE_ENV || 'development',
         port: penv.PORT || 3000,
-        userAgent: penv.npm_config_user_agent,
+        useragent: penv.npm_config_user_agent,
         mongoConnection,
 
         host: () => ({
