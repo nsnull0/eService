@@ -5,70 +5,88 @@ let
     worker = 0,
     finished = 0,
     fullIntermediate = [],
-    workerEvent = 0;
+    workerEvent = 0
 
 const
     cluster = require('cluster'),
     os = require('os'),
+
+    /**
+     * @param {*} cl cl
+     * @param {*} cores cores
+     * @returns {void}
+     */
     master = (cl, cores) => {
         for (let ii = 0; ii < cores; ii++) {
-            worker = cl.fork();
-            finished = 0;
-            fullIntermediate = [];
-            worker.on('message', workerEvent.message);
-            worker.on('exit', workerEvent.exit);
+            worker = cl.fork()
+            finished = 0
+            fullIntermediate = []
+            worker.on('message', workerEvent.message)
+            worker.on('exit', workerEvent.exit)
         }
     },
+
+    /**
+     * @param {*} cl cl
+     * @param {*} cores cores
+     * @param {*} pieces pieces
+     * @param {*} map map
+     * @returns {void}
+     */
     slave = (cl, cores, pieces, map) => {
         let
             piecesProcessed = 0,
             mypiece = pieces[cl.worker.id - 1],
-            myintermediate = [];
+            myintermediate = []
+
         while (mypiece) {
-            [key, value] = mypiece;
-            myintermediate = myintermediate.concat(map(key, value));
-            piecesProcessed++;
-            mypiece = pieces[(piecesProcessed * cores) + (cl.worker.id - 1)];
+            [key, value] = mypiece
+            myintermediate = myintermediate.concat(map(key, value))
+            piecesProcessed++
+            mypiece = pieces[(piecesProcessed * cores) + (cl.worker.id - 1)]
         }
         process.send({
             from: cl.worker.id,
             about: 'mapfinish',
             intermediate: myintermediate
-        });
-        cl.worker.destroy();
-    };
+        })
+        cl.worker.destroy()
+    }
+
 module.exports = (cores = os.cpus().length) => {
     return (pieces, map, reduce, func) => {
         workerEvent = {
             message: (msg) => {
                 if (msg.about === 'mapfinish') {
-                    fullIntermediate = fullIntermediate.concat(msg.intermediate);
+                    fullIntermediate = fullIntermediate.concat(msg.intermediate)
                 }
             },
             exit: () => {
-                finished++;
+                finished++
                 if (finished === cores) {
-                    fullIntermediate.sort();
+                    fullIntermediate.sort()
                     groups = fullIntermediate.reduce((res, current) => {
-                        let group = res[current[0]];
+                        let group = res[current[0]]
+
                         if (!group || typeof group !== 'object') {
-                            group = [];
+                            group = []
                         }
-                        group.push(current[1]);
-                        res[current[0]] = group;
-                        return res;
-                    }, {});
+                        group.push(current[1])
+                        res[current[0]] = group
+
+                        return res
+                    }, {})
                     Object.keys(groups).forEach((kk) => {
-                        groups[kk] = reduce(kk, groups[kk]);
-                    });
-                    func(groups);
+                        groups[kk] = reduce(kk, groups[kk])
+                    })
+                    func(groups)
                 }
             }
-        };
-        if (cluster.isMaster) {
-            master(cluster, cores);
-        } else {
-            slave(cluster, cores, pieces, map);
         }
-    };
-};
+        if (cluster.isMaster) {
+            master(cluster, cores)
+        } else {
+            slave(cluster, cores, pieces, map)
+        }
+    }
+}

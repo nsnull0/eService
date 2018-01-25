@@ -1,16 +1,14 @@
-import express from 'express';
-import pidusage from 'pidusage';
-import root from 'root';
+import _root from 'root'
+import express from 'express'
+import pidusage from 'pidusage'
 
 const
-    router = new express.Router();
+    router = new express.Router()
 
 /**
  * Useful for real-time log / analytics / uptime
  *
  * @see {@link http://localhost:3000/health} and {@link http://localhost:3000/health?host=1}
- * @author {@link https://wijaya.cc| Gunawan Wijaya}
- * @author {@link https://yoseph.ws| Yoseph Wijaya}
  * @memberof api
  * @method
  * @name /health GET
@@ -34,21 +32,21 @@ const
 }
  */
 router.get('/', (req, res) => {
-    pidusage.stat(process.pid, {advanced: true}, (err, stat) => {
+    pidusage.stat(process.pid, { advanced: true }, (err, stat) => {
         if (err) {
-            throw new Error(err);
+            throw new Error(err)
         }
-        stat.date = Number((new Date().getTime() / 1e3).toFixed(20));
+        stat.date = Number((new Date().getTime() / 1e3).toFixed(20))
         Object.keys(req.query).forEach((query) => {
-            let val = root[query];
+            let val = _root[query]
 
             // if the requested query is a function, invoke it
-            val = val instanceof Function ? val() : val;
+            val = val instanceof Function ? val() : val
 
             // if the requested query is truthy then print it
-            stat[query] = val ? val : () => {};
-        });
-        res.status(200).json(stat);
-    });
-});
-export default router;
+            stat[query] = val ? val : () => {}
+        })
+        res.status(200).json(stat)
+    })
+})
+export default router

@@ -4,8 +4,8 @@
         "dictionaries": ["jsdoc"]
     },
     "source": {
-        "include": ["app", "root.mjs", "package.json", "README.md"],
-        "exclude": ["app/_script"],
+        "include": ["./", "README.md"],
+        "exclude": ["./app/_script"],
         "includePattern": "(.js$|.mjs$)",
         "excludePattern": "(node_modules/|docs)"
     },
@@ -19,7 +19,7 @@
         "showInheritedInNav": true
     },
     "opts": {
-        "destination": "./www/docs/",
+        "destination": "./jsdoc/",
         "encoding": "utf8",
         "private": true,
         "recurse": true,

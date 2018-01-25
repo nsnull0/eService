@@ -1,58 +1,78 @@
 {
-  "name": "eservice",
-  "version": "0.0.4",
-  "description": "eservice",
-  "main": "./app",
-  "nodemonConfig": {
-    "ignore": [
-      "www/docs",
-      ".git",
-      "node_modules/**/node_modules"
+    "name": "eservice",
+    "version": "0.0.4",
+    "description": "eservice",
+    "main": "./app",
+    "ava": {
+        "files": [
+            "test/*.js",
+            "**/*.test.js"
+        ],
+        "concurrency": 5,
+        "failFast": false,
+        "failWithoutAssertions": false,
+        "powerAssert": true,
+        "tap": false
+    },
+    "eslintIgnore": [
+        "coverage/*",
+        "jsdoc/*"
     ],
-    "verbose": true,
-    "ext": "js json mjs"
-  },
-  "scripts": {
-    "jsdoc": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-    "prune": "node --experimental-modules ./app/_script/prune",
-    "watch": "nodemon --exec npm run start",
-    "start": "npm run prune && npm run jsdoc && node --experimental-modules ./app",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nsnull0/eService.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nsnull0/eService/issues"
-  },
-  "homepage": "https://github.com/nsnull0/eService#readme",
-  "dependencies": {
-    "@gunawanwijaya/minami": "^2.0.0",
-    "body-parser": "^1.18.2",
-    "cluster": "^0.7.7",
-    "compression": "^1.7.1",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.4",
-    "csurf": "^1.9.0",
-    "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "express-debug": "^1.1.1",
-    "express-slash": "^2.0.1",
-    "express-uncapitalize": "^1.0.0",
-    "fs-extra": "^4.0.2",
-    "helmet": "^3.9.0",
-    "jsdoc": "^3.5.5",
-    "json-mask": "^0.3.8",
-    "lodash": "^4.17.4",
-    "mongodb": "^2.2.33",
-    "morgan": "^1.9.0",
-    "passport": "^0.4.0",
-    "pidusage": "^1.2.0",
-    "response-time": "^2.3.2",
-    "serve-index": "^1.9.1",
-    "serve-static": "^1.13.1"
-  }
+    "scripts": {
+        "prestart": "set NODE_ENV=production && npm run lint && npm run jsdoc",
+        "start": "node --experimental-modules ./app",
+
+        "test": "set NODE_ENV=test && nyc ava --verbose",
+        "test:lint": "npm run lint && npm test",
+        "test:watch": "npm test --watch",
+
+        "jsdoc:prune": "rimraf ./jsdoc/",
+        "jsdoc": "npm run jsdoc:prune && jsdoc --verbose -c .jsdoc.json",
+        "lint": "eslint . --ext .js,.jsx -f table",
+        "serve:jsdoc": "npm run jsdoc && serve ./jsdoc/ && npm start",
+        "watch": "nodemon --exec npm start"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nsnull0/eService.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/nsnull0/eService/issues"
+    },
+    "homepage": "https://github.com/nsnull0/eService#readme",
+    "dependencies": {
+        "body-parser": "latest",
+        "cluster": "latest",
+        "compression": "latest",
+        "cookie-parser": "latest",
+        "cors": "latest",
+        "csurf": "latest",
+        "dotenv": "latest",
+        "express": "latest",
+        "express-debug": "latest",
+        "express-slash": "latest",
+        "express-uncapitalize": "latest",
+        "fs-extra": "latest",
+        "get-port": "latest",
+        "helmet": "latest",
+        "json-mask": "latest",
+        "lodash": "latest",
+        "mongodb": "latest",
+        "morgan": "latest",
+        "passport": "latest",
+        "pidusage": "latest",
+        "response-time": "latest"
+    },
+    "devDependencies": {
+        "@gunawanwijaya/minami": "latest",
+        "ava": "latest",
+        "eslint": "latest",
+        "jsdoc": "latest",
+        "nodemon": "latest",
+        "nyc": "latest",
+        "rimraf": "latest",
+        "serve": "latest"
+    }
 }
