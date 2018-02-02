@@ -1,13 +1,10 @@
 /* globals Promise */
+/* eslint require-jsdoc:0  */
 const
     start = new Date(),
-    fs = require('fs-extra'),
+    fs = require('fs'),
     mapreduce = require('./MapReduce')(),
 
-    /**
-     * @param {String} filename filename
-     * @returns {Promise} promise
-     */
     readFile = async (filename) => {
         try {
             return await new Promise((resolve, reject) => {
@@ -23,11 +20,6 @@ const
         }
     },
 
-    /**
-     * @param {String} key key
-     * @param {Array<Object>} data data
-     * @returns {Number} mapper
-     */
     map = (key, data) => {
         const
             list = [],
@@ -44,11 +36,6 @@ const
         return list
     },
 
-    /**
-     * @param {String} key key
-     * @param {Array<Object>} data data
-     * @returns {Number} reducer
-     */
     reduce = (key, data) => {
         let sum = 0
 
@@ -59,9 +46,6 @@ const
         return sum
     }
 
-/**
- * @returns {void}
- */
 const run = async () => {
     let i = 0
     const data = []
@@ -74,9 +58,12 @@ const run = async () => {
         data.push(readFile('./app/_data/_lipsum.com.txt'))
     }
 
-    mapreduce(await Promise.all(data), map, reduce, (result) => {
-        console.log([result, i, new Date() - start])
-    })
+    mapreduce(...[
+        await Promise.all(data),
+        map,
+        reduce,
+        (result) => console.log([result, i, new Date() - start])
+    ])
 }
 
 run()

@@ -10,7 +10,6 @@
  */
 
 let tmp = 0
-let data = 0
 
 export const
 
@@ -174,15 +173,15 @@ export const
     rVariance = rVar,
     rStandardDeviation = rStdDev
 
-data = []
-tmp = {
-    dept: ['it', 'finance', 'hr', 'field']
-}
+// let data = []
+// tmp = {
+//     dept: ['it', 'finance', 'hr', 'field']
+// }
 
-while (data.length < 10e6) {
-    data.push({
-        seed: rRandomString(10),
-        dept: rRandomFrom(tmp.dept),
-        salary: rRandomInt(1e9) + 1,
-    })
-}
+// while (data.length < 10e6) {
+//     data.push({
+//         seed: rRandomString(10),
+//         dept: rRandomFrom(tmp.dept),
+//         salary: rRandomInt(1e9) + 1,
+//     })
+// }

@@ -1,3 +1,4 @@
+/* eslint require-jsdoc:0  */
 let
     key = 0,
     value = 0,
@@ -11,11 +12,6 @@ const
     cluster = require('cluster'),
     os = require('os'),
 
-    /**
-     * @param {*} cl cl
-     * @param {*} cores cores
-     * @returns {void}
-     */
     master = (cl, cores) => {
         for (let ii = 0; ii < cores; ii++) {
             worker = cl.fork()
@@ -26,13 +22,6 @@ const
         }
     },
 
-    /**
-     * @param {*} cl cl
-     * @param {*} cores cores
-     * @param {*} pieces pieces
-     * @param {*} map map
-     * @returns {void}
-     */
     slave = (cl, cores, pieces, map) => {
         let
             piecesProcessed = 0,

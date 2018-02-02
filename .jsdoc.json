@@ -5,7 +5,7 @@
     },
     "source": {
         "include": ["./", "README.md"],
-        "exclude": ["./app/_script"],
+        "exclude": ["./app/_script", "./node_modules/"],
         "includePattern": "(.js$|.mjs$)",
         "excludePattern": "(node_modules/|docs)"
     },

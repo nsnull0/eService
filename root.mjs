@@ -1,12 +1,11 @@
 /* globals Reflect */
 import dotenv from 'dotenv'
-import getPort from 'get-port'
+import getport from 'get-port'
 import os from 'os'
 
 dotenv.config()
 
 const penv = process.env
-const port = penv.PORT || 3000
 
 /**
  * Various useful variable, since this is located in `node_modules`<br>
@@ -24,7 +23,14 @@ export default {
     useragent: penv.npm_config_user_agent,
     mongoConnection: penv.DB_MONGO_URI,
 
-    getPort: () => getPort({ port }),
+    /**
+     * @returns {*} object
+     */
+    getPort: () => getport({ port: penv.PORT || 3000 }),
+
+    /**
+     * @returns {*} object
+     */
     getHost: () => ({
         arch: os.arch(),
         platform: os.platform(),
@@ -41,16 +47,11 @@ export default {
      * @returns {function} middleware
      */
     jsonTransform: () => (req, res, next) => {
-        const resJsonOld = res.json
+        const { json: _json } = res
 
-        res.json = (args) => {
-            args = {
-                data: args,
-                statusCode: res.statusCode
-            }
-            Reflect.apply(resJsonOld, res, [args])
-        }
-        next()
+        res.json = (data) => Reflect.apply(_json, res, [{ data }])
+
+        return next()
     },
 
     /**
@@ -76,6 +77,6 @@ export default {
             stack: err.stack,
         })
 
-        return next
+        return next()
     }
 }

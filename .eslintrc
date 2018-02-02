@@ -198,14 +198,19 @@
             "error",
             {
                 "consistent": true,
-                "minProperties": 2
+                "multiline": true
             }
         ],
         "object-curly-spacing": [
             "error",
             "always"
         ],
-        "object-property-newline": "error",
+        "object-property-newline": [
+            "error",
+            {
+                "allowMultiplePropertiesPerLine": true
+            }
+        ],
         "object-shorthand": "off",
         "one-var": "off",
         "one-var-declaration-per-line": "error",
