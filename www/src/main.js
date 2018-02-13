@@ -1,10 +1,12 @@
-import Vue from 'vue'
+/* globals require */
+require('normalize.css')
 import App from './App.vue'
+import Vue from 'vue'
 import store from './store'
 
 Vue.config.productionTip = false
 
 new Vue({
     store,
-    render: h => h(App)
+    render: (h) => h(App)
 }).$mount('#app')
