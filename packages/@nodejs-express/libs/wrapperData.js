@@ -1,4 +1,4 @@
-exports = (req, res, next) => {
+module.exports = (req, res, next) => {
   if (req.url.indexOf("/graphql") < 0) {
     const _resJson = res.json;
 
@@ -14,4 +14,3 @@ exports = (req, res, next) => {
 
   return next();
 };
-module.exports = exports;

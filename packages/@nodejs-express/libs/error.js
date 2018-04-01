@@ -16,7 +16,7 @@
 const builder = ({ message, code, error = Error(message) }) =>
   (error.code = code) && error;
 
-exports = {
+module.exports = {
   builder,
 
   /**
@@ -109,4 +109,3 @@ exports = {
     message: "Internal Server Error"
   })
 };
-module.exports = exports;

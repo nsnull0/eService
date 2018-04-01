@@ -1,4 +1,4 @@
-exports = {
+module.exports = {
   checkServices: ({ serviceName }) => {
     try {
       return serviceName;
@@ -7,5 +7,3 @@ exports = {
     }
   }
 };
-
-module.exports = exports;

@@ -1,6 +1,6 @@
 const { NODE_ENV } = process.env;
 
-exports = (app, express) => {
+module.exports = (app, express) => {
   const opts = { index: ["index.html", "index.htm"] };
 
   /**
@@ -22,4 +22,3 @@ exports = (app, express) => {
 
   app.use(middleware, express.static(".jsdoc", opts));
 };
-module.exports = exports;

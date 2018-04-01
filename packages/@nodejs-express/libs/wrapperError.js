@@ -1,4 +1,4 @@
-exports = (err, req, res, next) => {
+module.exports = (err, req, res, next) => {
   const { message, code = 500 } = err;
   const stack = process.env.NODE_ENV === "production" ? () => {} : err.stack;
   const time = new Intl.DateTimeFormat(["en"], {
@@ -17,4 +17,3 @@ exports = (err, req, res, next) => {
 
   return next;
 };
-module.exports = exports;
