@@ -1,0 +1,83 @@
+{
+  "port": 3000,
+  "name": "eservice",
+  "version": "0.0.5",
+  "description": "eservice",
+  "main": ".",
+  "scripts": {
+    "prestart": "export NODE_ENV=production|| set NODE_ENV=production&& npm run lint",
+    "start": "node . -s graphql:4040 jsdoc:2020",
+    "test": "export NODE_ENV=test|| set NODE_ENV=test && npm run lint && nyc ava --verbose",
+    "test:watch": "npm test --watch",
+    "prejsdoc": "rimraf ./.jsdoc/",
+    "jsdoc": "jsdoc --verbose -c .jsdoc.json",
+    "lint": "eslint . --ext .js,.jsx",
+    "watch": "nodemon --exec npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsnull0/eService.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nsnull0/eService/issues"
+  },
+  "homepage": "https://github.com/nsnull0/eService#readme",
+  "dependencies": {
+    "app-module-path": "^2.2.0",
+    "body-parser": "^1.18.2",
+    "cluster": "^0.7.7",
+    "compression": "^1.7.2",
+    "cors": "^2.8.4",
+    "csurf": "^1.9.0",
+    "dotenv": "^5.0.1",
+    "elasticsearch": "^14.1.0",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.12",
+    "express-rate-limit": "^2.11.0",
+    "get-port": "^3.2.0",
+    "graphql": "^0.13.1",
+    "graphql-type-json": "^0.2.0",
+    "helmet": "^3.12.0",
+    "http-proxy-middleware": "^0.17.4",
+    "jsonwebtoken": "^8.2.0",
+    "lodash": "^4.17.4",
+    "method-override": "^2.3.10",
+    "mongodb": "^3.0.2",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "pidusage": "^1.2.0",
+    "response-time": "^2.3.2",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "@gunawanwijaya/minami": "^2.0.1",
+    "@vue/cli": "^3.0.0-alpha.6",
+    "ava": "^0.25.0",
+    "eslint": "^4.16.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-vue": "^4.4.0",
+    "jsdoc": "^3.5.5",
+    "nyc": "^11.4.1",
+    "prettier": "^1.11.1",
+    "rimraf": "^2.6.2",
+    "serve": "^6.4.9"
+  },
+  "ava": {
+    "files": [
+      "test/*.js",
+      "**/*.test.js"
+    ],
+    "concurrency": 5,
+    "failFast": false,
+    "failWithoutAssertions": false,
+    "powerAssert": true,
+    "tap": false
+  },
+  "eslintIgnore": [
+    "coverage/*",
+    ".jsdoc/*"
+  ]
+}

@@ -1,0 +1,9 @@
+enum ServiceName {
+  auth
+  transaction
+  merchant
+  purchaseVerification
+}
+type Query {
+  checkServices(serviceName: [ServiceName]): [String]
+}
