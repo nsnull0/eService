@@ -1,0 +1,119 @@
+{
+  "__desc":
+    "all Keys is camelCase, all Enum is UPPERCASE, all Date is `createdAt, updatedAt` (UNIX timestamp), all Boolean is `isDeleted,isPaid,isAuthenticated`, all Array is `keys, roles, reviews, notes`",
+  "USER": {
+    "__desc":
+      "user schema,pretty much same structure as github - https://developer.github.com/v4/explorer/",
+    "_id": "#USER_ID",
+    "roles": ["PUBLIC", "PRIVATE", "LOVER"],
+    "notes": ["cakep", "nunggak 3 hari"],
+    "isAuthenticated": false,
+    "reviews": ["#REVIEW_ID"],
+    "profile": {
+      "__desc":
+        "all in profile is user-editable properties, email & phone number is mandatory for password-less user login",
+      "email": "email@domain.com",
+      "cellPhone": "081081081081",
+      "fullName": "Yui Hatano",
+      "photo": "http://myphoto.example.com",
+      "website": "http://www.example.com",
+      "organizations": ["#ORGANIZATION_ID", "#ORGANIZATION_ID"],
+      "location": {
+        "name": "Shibuya-ku",
+        "lat": -123,
+        "long": 55
+      },
+      "updatedAt": 123123123123,
+      "createdAt": 123123123123
+    }
+  },
+  "REVIEW": {
+    "user": "#USER_ID",
+    "title": "ini title",
+    "detail": "ini review",
+    "rating": "#FLOAT - scale from 0.0 - 1.0"
+  },
+  "ORGANIZATION": {
+    "__desc":
+      "upon organization creation, addToSet the user to managers, can add batch user by email domain",
+    "managers": ["#USER_ID", "#USER_ID"],
+    "reviews": ["#REVIEW_ID"],
+    "profile": {
+      "__desc": "all in profile is user-editable properties",
+      "name": "Rakuten K.K.",
+      "phoneNumber": "081081081081",
+      "website": "http://www.example.com",
+      "location": {
+        "name": "Shibuya-ku",
+        "lat": -123,
+        "long": 55
+      },
+      "updatedAt": 123123123123,
+      "createdAt": 123123123123
+    }
+  },
+  "PROJECT": {
+    "__desc":
+      "upon project creation, addToSet user to members, can add batch user by email domain / part of organization",
+    "members": [
+      {
+        "user": "#USER_ID",
+        "role": "GUEST",
+        "filter": "label=red&member=saya@domain.com"
+      },
+      {
+        "user": "#USER_ID",
+        "role": "MEMBER",
+        "filter": "label=red&member=saya@domain.com"
+      },
+      {
+        "user": "#USER_ID",
+        "role": "ADMIN",
+        "filter": "label=red&member=saya@domain.com"
+      }
+    ],
+    "name": "ini name",
+    "isArchived": false,
+    "visibility": [
+      "one of these enums must be selected",
+      "PUBLIC",
+      "PRIVATE",
+      "COLEAGUE"
+    ],
+    "reviews": ["#REVIEW_ID"],
+    "boardSequence": ["to show priority & sequence", "#BOARD_ID", "#BOARD_ID"],
+    "labelSequence": ["to show priority & sequence", "#LABEL_ID", "#LABEL_ID"]
+  },
+  "LABEL": {
+    "project": "#PROJECT_ID",
+    "name": "ini label",
+    "style": "{ color: rgba(127,127,127, .5), background: #fafafa }"
+  },
+  "BOARD": {
+    "__desc": "same like trello",
+    "project": "#PROJECT_ID",
+    "name": "ini name",
+    "isArchived": false,
+    "description": "ini description",
+    "labels": ["#LABEL_ID", "#LABEL_ID"],
+    "cardSequence": ["to show priority & sequence", "#CARD_ID", "#CARD_ID"],
+    "style": "{ width: 500px }"
+  },
+  "CARD": {
+    "__desc": "same like trello",
+    "board": "#BOARD_ID",
+    "users": ["#USER_ID", "#USER_ID"],
+    "name": "ini name",
+    "isArchived": false,
+    "description": "ini description",
+    "labels": ["#LABEL_ID", "#LABEL_ID"],
+    "checklists": [
+      {
+        "isChecked": true,
+        "name": "ini checklist"
+      }
+    ],
+    "endAt": 123123123123,
+    "thread": "disqus#123"
+  }
+}
